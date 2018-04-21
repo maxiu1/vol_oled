@@ -1,18 +1,6 @@
 
-# Makefile itself dir
-ROOT_DIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
-# hw platform as from autogen.sh choose
-HWPLAT:=$(shell cat $(ROOT_DIR)/hwplatform)
-
-CMNFLAGS=-W -Wall -Wno-unused-variable -Wno-unused-parameter -Ofast
-# sets CPPFLAGS hw platform dependant
-ifeq ($(HWPLAT),BananaPI)
-	CPPFLAGS=${CMNFLAGS} -mfpu=vfpv4 -mfloat-abi=hard -march=armv7 -mtune=cortex-a7 -DBANANAPI
-else # fallback to raspberry
-	# The recommended compiler flags for the Raspberry Pi
-	CPPFLAGS=${CMNFLAGS} -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s
-endif
+CPPFLAGS=-W -Wall -Wno-unused-variable -Wno-unused-parameter -Ofast
 
 PROG_NAME=vol_oled
 includes = $(wildcard *.h)
