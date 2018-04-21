@@ -65,7 +65,7 @@ struct ProgOpts
   unsigned char i2c_addr;
   int reset_gpio;
 
-  ProgOpts(): prog_name("vol_oled"), version("0.01"),
+  ProgOpts(): prog_name("mpd_oled"), version("0.01"),
               oled(OLED_ADAFRUIT_SPI_128x32), framerate(20), bars(16), gap(1),
               i2c_addr(0), reset_gpio(25)
               {}
@@ -215,7 +215,7 @@ string print_config_file(int bars, int framerate, string fifo_name)
                  "\n"
                  "[input]\n"
                  "method = fifo\n"
-                 "source = /tmp/mpd_vol_oled\n"
+                 "source = /tmp/mpd_oled\n"
                  "\n"
                  "[output]\n"
                  "method = raw\n"

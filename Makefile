@@ -10,7 +10,7 @@ endif
 
 CPPFLAGS=-W -Wall -Wno-unused-variable -Wno-unused-parameter -Ofast -D$(PLAYER)
 
-PROG_NAME=vol_oled
+PROG_NAME=mpd_oled
 includes = $(wildcard *.h)
 
 # make all
