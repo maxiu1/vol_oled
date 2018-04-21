@@ -2,8 +2,11 @@
 #include "iconv_wrap.h"
 
 #include <mpd/client.h>
+
+#ifdef VOLUMIO
 #include <curl/curl.h>
 #include <jsoncpp/json/json.h>
+#endif // VOLUMIO
 
 #include <assert.h>
 #include <stdio.h>
@@ -66,6 +69,7 @@ int get_connection_info()
   return 100 + atoi(buf);
 }
 
+#ifdef VOLUMIO
 // https://stackoverflow.com/questions/24884490/using-libcurl-and-jsoncpp-to-parse-from-https-webserver
 namespace
 {
@@ -116,6 +120,7 @@ string get_volumio_status()
   
   return (httpCode == 200) ? httpData : string();
 }
+#endif // VOLUMIO
 
 static string get_tag(const struct mpd_song *song, enum mpd_tag_type type)
 {
@@ -160,9 +165,9 @@ void mpd_info::set_vals(struct mpd_connection *conn)
     return;
 
   // Removed because MPD volume may not be Volumio volume
-  //volume = mpd_status_get_volume(status);
-  //if (mpd_status_get_error(status) != NULL)
-  //  return;
+  volume = mpd_status_get_volume(status);
+  if (mpd_status_get_error(status) != NULL)
+    return;
 
   state = mpd_status_get_state(status);
   if (state == MPD_STATE_PLAY || state == MPD_STATE_PAUSE) {
@@ -220,6 +225,7 @@ int mpd_info::init()
   int ret = (mpd_connection_get_error(conn) == MPD_ERROR_SUCCESS);
   mpd_connection_free(conn);
 
+#ifdef VOLUMIO
   string volumio_status = get_volumio_status();
   Json::Reader reader;
   Json::Value obj;
@@ -229,6 +235,7 @@ int mpd_info::init()
   else {
     volume = 0;
   }
+#endif // VOLUMIO
 
   return ret;
 }
