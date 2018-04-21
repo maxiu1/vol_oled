@@ -1,6 +1,7 @@
 
 
 CPPFLAGS=-W -Wall -Wno-unused-variable -Wno-unused-parameter -Ofast
+CFLAGS=-idirafter include
 
 PROG_NAME=vol_oled
 includes = $(wildcard *.h)
