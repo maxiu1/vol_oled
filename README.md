@@ -15,9 +15,10 @@ testing.
 The instructions depend on the player
 
 * [Build and install on Volumio](INSTALL_VOLUMIO.md)
-* [Build and install on RuneAudio](INSTALL_RUNEADIO.md)
+* [Build and install on RuneAudio](INSTALL_RUNEAUDIO.md)
 * Build and install on Debian-based OS running MPD, follow the instructions
-  for Volumio but use `PLAYER=MPD make` when building mpd_oled
+  for [Build and install on Volumio](INSTALL_VOLUMIO.md) but use
+  `PLAYER=MPD make` when building mpd_oled
 
 
 ## Credits

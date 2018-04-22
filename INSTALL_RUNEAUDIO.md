@@ -64,7 +64,7 @@ timedatectl set-timezone Canada/Eastern
 
 Install the packages needed to build the program
 ```
-sudo apt install build-essential git-core autoconf make libtool libi2c-dev i2c-tools lm-sensors libcurl4-openssl-dev libmpdclient-dev libjsoncpp-dev
+pacman -S i2c-tools lm_sensors
 ```
 Clone the source repository
 ```
@@ -89,9 +89,9 @@ of 15Hz is
 ./mpd_oled -o 6 -b 10 -g 1 -f 15
 ```
 For I2C OLEDs you may need to specify the I2C address, find this by running,
-e.g. 'sudo i2cdetect -y 1' and specify the address with mpd_oled -a,
-e.g. 'mpd_oled -o6 -a 3d ...'. If you have a reset pin connected, specify
-the GPIO number with mpd_oled -r, e.g. 'mpd_oled -o6 -r 24 ...'. (For, SPI
+e.g. `i2cdetect -y 1` and specify the address with mpd_oled -a,
+e.g. `./mpd_oled -o6 -a 3d ...`. If you have a reset pin connected, specify
+the GPIO number with mpd_oled -r, e.g. `./mpd_oled -o6 -r 24 ...`. (For, SPI
 OLEDs, edit display.cc to include your connection details, if this works
 out I will provide options for these parameters.)
 
@@ -99,13 +99,13 @@ Once the display is working, edit the file mpd_oled.service to include
 your OLED type number with the mpd_oled command, and any other options.
 Then run
 ```
-sudo bash install.sh
+bash install.sh
 ```
 This will copy the program to /usr/local/bin and add a systemd service
 to run it and start it running. You can start, stop, disable, etc the
 service with commands like
 ```
-sudo systemctl start mpd_oled
+systemctl start mpd_oled
 ```
 If you wish to change mpd_oled parameters later then edit mpd_oled.service
 to include the changes and rerun install.sh.

@@ -204,10 +204,10 @@ string print_config_file(int bars, int framerate, string fifo_name)
   char templt[] = "/tmp/cava_config_XXXXXX";
   int fd = mkstemp(templt);
   if(fd == -1)
-    return "";  // failed to open file and confert to file stream
+    return "";  // failed to open file and convert to file stream
   FILE *ofile = fdopen(fd, "w");
   if(ofile == NULL)
-    return "";  // failed to open file and confert to file stream
+    return "";  // failed to open file and convert to file stream
 
   fprintf(ofile, "[general]\n"
                  "framerate = %d\n"
@@ -215,7 +215,7 @@ string print_config_file(int bars, int framerate, string fifo_name)
                  "\n"
                  "[input]\n"
                  "method = fifo\n"
-                 "source = /tmp/mpd_oled\n"
+                 "source = /tmp/mpd_oled_fifo\n"
                  "\n"
                  "[output]\n"
                  "method = raw\n"
