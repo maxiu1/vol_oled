@@ -55,26 +55,28 @@ read it and calculate the spectrum. This is configured in /etc/mpd.conf,
 however, RuneAudio regenerates this file in response to various events and
 so the RuneAudio code must be changed to insert the section when the
 file is generated. The following commands install the patch program,
-copy thr FIFO configuration file to /usr/local/etc/mpd_oled_fifo.conf,
+copy the FIFO configuration file to /usr/local/etc/mpd_oled_fifo.conf,
 and patch the RuneAudio code to append this file when generating
-/etc/mpd.conf.
+/etc/mpd.conf. (Note: if, for any reason, regeneration of /etc/mpd.conf
+has been disabled (for example, if it has been set immutable) then edit
+the file directly and append the contents of mpd_oled_fifo.conf.)
 
 ```
 pacman -S patch
 cp mpd_oled_fifo.conf /usr/local/etc/
 patch -d/ -p0 -N < runeaudio_mpd_fifo.patch
 ```
-Restart MPD by going to the RuneUI MPD Configuration page and clicking on
+Reboot the machine from RuneUI, then log back in and change to the
+mpd_oled source directory, e.g.
+```
+cd mpd_oled
+```
+If you ever want to make any changes to the FIFO configuration,
+for example you might want to change buffer_time to help synchronise
+the spectrum display with the audio on your system,
+then modify /usr/local/etc/mpd_oled_fifo.conf and restart MPD,
+by going to the RuneUI MPD Configuration page and clicking on
 "SAVE AND APPLY" in the volume control section.
-
-If you want to make any changes to the FIFO configuration
-then modify /usr/local/etc/mpd_oled_fifo.conf and restart MPD.
-For example, changing buffer_time may help synchronise the spectrum display
-and the audio on your system.
-
-Note: if, for any reason, regeneration of /etc/mpd.conf has been disabled
-(for example, if it has been set immutable) then edit the file directly and
-append the contents of mpd_oled_fifo.conf.
 
 Now build mpd_oled
 ```
@@ -102,6 +104,10 @@ out I will provide options for these parameters.)
 
 Once the display is working, edit the file mpd_oled.service to include
 your OLED type number with the mpd_oled command, and any other options.
+```
+nano mpd_oled.service
+```
+
 Then run
 ```
 bash install.sh
@@ -114,5 +120,4 @@ systemctl start mpd_oled
 ```
 If you wish to change mpd_oled parameters later then edit mpd_oled.service
 to include the changes and rerun install.sh.
-
 
