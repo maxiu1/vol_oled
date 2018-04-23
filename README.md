@@ -1,13 +1,13 @@
 # MPD, Volumio, RuneAudio OLED Spectrum Display for Raspberry Pi
 
 The mpd_oled program displays an information screen including a music
-frequency spectrum on an OLED screen connected to a Raspberry Pi running
-MPD, like Volumio or RuneAudio (and a time display when no music is playing).
+frequency spectrum on an OLED screen connected to a Raspberry Pi (or similar)
+running MPD, this includes Volumio and RuneAudio.
 ![OLED with mpd_oled](mpd_oled.jpg)
 
 The code and installation instructions have not been widely tested. The
 program supports a variety of I2C and SPI 128x64 OLED displays, but I only
-have access to a 4-pin I2C SSH1106 OLED with a Raspberry Pi Zero W for
+have access to a 4-pin I2C SSH1106 OLED and a Raspberry Pi Zero W for
 testing.
 
 ## Build and install

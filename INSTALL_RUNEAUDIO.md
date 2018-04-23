@@ -30,6 +30,26 @@ dtparam=i2c_arm_baudrate=400000
 ```
 Then restart the Pi.
 
+If the mpd_oled clock does not display the local time then you may need
+to set the system time zone. Find your timezone in the list printed by the
+first command below, and edit the second command to include your timezone
+```
+timedatectl list-timezones
+timedatectl set-timezone Canada/Eastern
+```
+
+## Build and install mpd_oled
+
+Install the packages needed to build the program
+```
+pacman -S i2c-tools lm_sensors
+```
+Clone the source repository and change to the source directory
+```
+git clone https://github.com/antiprism/mpd_oled
+cd mpd_oled
+```
+
 The MPD audio output needs to be copied to a named pipe, where Cava can
 read it and calculate the spectrum. This is configured in /etc/mpd.conf,
 however, RuneAudio regenerates this file in response to various events and
@@ -52,30 +72,15 @@ then modify /usr/local/etc/mpd_oled_fifo.conf and restart MPD.
 For example, changing buffer_time may help synchronise the spectrum display
 and the audio on your system.
 
-If the mpd_oled clock does not display the local time then you may need
-to set the system time zone. Find your timezone in the list printed by the
-first command below, and edit the second command to include your timezone
-```
-timedatectl list-timezones
-timedatectl set-timezone Canada/Eastern
-```
+Note: if, for any reason, regeneration of /etc/mpd.conf has been disabled
+(for example, if it has been set immutable) then edit the file directly and
+append the contents of mpd_oled_fifo.conf.
 
-## Build and install mpd_oled
-
-Install the packages needed to build the program
+Now build mpd_oled
 ```
-pacman -S i2c-tools lm_sensors
-```
-Clone the source repository
-```
-git clone https://github.com/antiprism/mpd_oled
-```
-Change to the source directory and build the program
-```
-cd mpd_oled
 CC=clang CXX=clang++ PLAYER=RUNEAUDIO make
 ```
-Check the program works correctly by running it while playing music.
+Check the mpd_oled program works correctly by running it while playing music.
 The OLED type MUST be specified with -o from the following list:
     1 - Adafruit SPI 128x64,
     3 - Adafruit I2C 128x64,
